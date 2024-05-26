@@ -119,4 +119,12 @@ GROUP BY
 ;
 
 
+SELECT
+    MAX(total_amount) amount
+FROM
+    logs l
+ORDER BY
+    amount DESC;
+
+
 
