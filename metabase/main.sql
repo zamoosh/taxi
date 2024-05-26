@@ -120,12 +120,13 @@ GROUP BY
 
 
 SELECT
-    MAX(total_amount) amount
+    MAX(total_amount)::NUMERIC::money amount
 FROM
     logs l
 ORDER BY
     amount DESC
 ;
+
 
 SELECT
     MIN(l.trip_distance),
@@ -143,6 +144,116 @@ FROM
     logs l
 WHERE
     l.trip_distance = 0
+;
+
+
+
+SELECT *
+FROM
+    (
+        SELECT TRUNC(l.trip_distance, 0) AS d FROM logs l WHERE l.trip_distance > 0
+    ) AS sq
+WHERE
+    TRUNC(sq.d, 0) > 1
+;
+
+SELECT
+    l.trip_distance
+FROM
+    logs l
+WHERE
+    TRUNC(l.trip_distance, 0) > 0;
+
+
+SELECT
+    l.trip_distance AS distance,
+    COUNT(*)        AS count
+FROM
+    logs l
+GROUP BY
+    l.trip_distance
+;
+
+
+
+SELECT
+    l.total_amount AS distance,
+    COUNT(*)       AS count
+FROM
+    logs l
+GROUP BY
+    l.total_amount
+;
+
+
+SELECT
+    AVG(l.tip_amount) AS avg,
+    COUNT(*)          AS "تعداد کل"
+FROM
+    logs l
+;
+
+
+SELECT
+    AVG(l.tip_amount) AS avg,
+    COUNT(*)          AS "تعداد کل"
+FROM
+    logs l
+WHERE
+    l.trip_distance > 0
+    AND l.total_amount > 0
+;
+
+
+
+SELECT *
+FROM
+    (
+        SELECT COUNT(*) AS count, l.passenger_count AS passenger_count FROM logs l GROUP BY l.passenger_count
+    ) AS sq
+;
+
+
+SELECT
+    COUNT(*) AS count,
+    l.passenger_count
+FROM
+    logs l
+WHERE
+    l.passenger_count > 0
+GROUP BY
+    l.passenger_count
+ORDER BY
+    count DESC
+;
+
+
+
+SELECT
+    l.pulocationid,
+    COUNT(*) AS count
+FROM
+    logs l
+GROUP BY
+    l.pulocationid
+ORDER BY
+    count DESC
+;
+
+
+SELECT
+    l.dolocationid,
+    COUNT(*) AS count
+FROM
+    logs l
+GROUP BY
+    l.dolocationid
+ORDER BY
+    count DESC
+;
+
+
+
 
 
 
