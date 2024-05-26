@@ -124,7 +124,25 @@ SELECT
 FROM
     logs l
 ORDER BY
-    amount DESC;
+    amount DESC
+;
+
+SELECT
+    MIN(l.trip_distance),
+    AVG(l.trip_distance),
+    MAX(l.trip_distance)
+FROM
+    logs l
+;
+
+
+
+SELECT
+    COUNT(*)
+FROM
+    logs l
+WHERE
+    l.trip_distance = 0
 
 
 
